@@ -31,8 +31,8 @@ const labels = [
 
 // Array of all button actions
 const actions = [
-  rotateCW,
-  rotateCCW,
+  () => rotateVertices(ROTATE_FACTOR),
+  () => rotateVertices(-ROTATE_FACTOR),
   () => translateVertices(-TRANSLATE_FACTOR, 0),
   () => translateVertices(TRANSLATE_FACTOR, 0),
   () => translateVertices(0, -TRANSLATE_FACTOR),
@@ -98,11 +98,11 @@ function mousePressed() {
 }
 
 // Function implementations for button actions
-function rotateCW() {
+function rotateVertices(angle) {
   // Define the matrices
   const rotationMatrix = [
-    [cos(ROTATE_FACTOR), -sin(ROTATE_FACTOR)],
-    [sin(ROTATE_FACTOR), cos(ROTATE_FACTOR)]
+    [cos(angle), -sin(angle)],
+    [sin(angle), cos(angle)]
   ];
   let myMatrix = [];
   let resultantMatrix = [];
@@ -121,16 +121,6 @@ function rotateCW() {
   // Store the new points in the resultant matrix
   currX = resultantMatrix[0][0];
   currY = resultantMatrix[1][0];
-}
-
-function rotateCCW() {
-  console.log("rotateCCW called");
-
-}
-
-function rotateVertices(angle) {
-  console.log("rotateVertices called");
-
 }
 
 function translateVertices(dx, dy) {  
