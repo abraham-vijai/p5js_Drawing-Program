@@ -29,6 +29,7 @@ class Button {
   draw() {
     // Draw the border
     strokeWeight(3);
+    stroke('black')
     rectMode(CENTER);
     rect(this.x, this.y, this.width, this.height);
 
@@ -52,7 +53,8 @@ class Button {
   Return value : None
   */
   clicked(mouseX, mouseY) {
-    if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
+    if (mouseX > this.x-(this.height/2) && mouseX < this.x-(this.height/2) + this.width && 
+        mouseY > this.y-(this.height/2) && mouseY < this.y-(this.height/2)+this.height) {
       this.action();
     }
   }
