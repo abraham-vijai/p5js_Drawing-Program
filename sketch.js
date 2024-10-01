@@ -82,3 +82,37 @@ function preload() {
   imageList[8] = loadImage("assets/clear.png")
   imageList[9] = loadImage("assets/pivot.png")
 }
+
+// Function implementations for button actions
+function rotateCW() {
+
+}
+
+function rotateCCW() {
+
+}
+
+function rotateVertices(angle) {
+
+}
+
+function translateVertices(dx, dy) {
+
+}
+
+function scaleVertices(factor) {
+
+}
+
+function clearCanvas() {
+
+}
+
+
+function togglePivotMode() {
+
+}
+
+function mouseClicked() {
+
+}
