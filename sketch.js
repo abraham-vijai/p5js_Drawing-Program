@@ -1,7 +1,13 @@
+// Define constants
 const TOOLBAR_WIDTH = 150;
 const TRANSLATE_FACTOR = 10;
 const SCALE_UP_FACTOR = 1.05;
 const SCALE_DOWN_FACTOR = 0.95;
+const ROTATE_FACTOR = 45;
+
+// Define global variables
+let currX = 0;
+let currY = 0;
 
 // Array to store images
 var imageList = []; 
@@ -64,6 +70,16 @@ function draw() {
 
   // Draw all buttons
   buttons.forEach(button => button.draw());
+
+  // Define a point in the canvas area
+  strokeWeight(50);
+  stroke('blue');
+  point(currX, currY);
+  console.log("Current coordinate: "+currX+" "+currY)
+
+  
+  // point(x1,y1)
+  // point(92,530);
 }
 
 function preload() {
@@ -77,17 +93,45 @@ function preload() {
   imageList[7] = loadImage("assets/smaller.png")
   imageList[8] = loadImage("assets/clear.png")
   imageList[9] = loadImage("assets/pivot.png")
+
+  // ? maybe rewrite it to cycle throught the folder
 }
 
 function mousePressed() {
   // Check if a button is clicked
   buttons.forEach(button => button.clicked(mouseX, mouseY));
-
 }
 
 // Function implementations for button actions
 function rotateCW() {
-  console.log("rotateCW called");
+  // Define the matrices
+  const rotationMatrix = [
+    [cos(ROTATE_FACTOR), -sin(ROTATE_FACTOR)],
+    [sin(ROTATE_FACTOR), cos(ROTATE_FACTOR)]
+  ];
+  let myMatrix = [];
+  let resultantMatrix = [];
+
+  // Create the matrix to store the points
+  myMatrix = new Matrices();
+  Matrices.createMatrix(myMatrix,2,1);
+
+  // Store the points
+  myMatrix[0][0] = currX;
+  myMatrix[1][0] = currY;
+
+  // Multiply by the rotation matrix
+  resultantMatrix = Matrices.matrixMultiply(rotationMatrix, myMatrix);
+  Matrices.printMatrix(resultantMatrix);
+
+  console.log(myMatrix[0][0]+" "+myMatrix[1][0]);
+  // Store the new points in the resultant matrix
+  currX = resultantMatrix[0][0];
+  currY = resultantMatrix[1][0];
+  console.log(currX+" "+currY)
+  // currX += 20;
+  // currY += 20;
+
 }
 
 function rotateCCW() {
@@ -124,5 +168,8 @@ function togglePivotMode() {
 }
 
 function mouseClicked() {
-
+  if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
+    currX = mouseX;
+    currY = mouseY;
+  }
 }
