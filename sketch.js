@@ -1,7 +1,11 @@
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(220);
+  // Create Toolbar Area
+  fill('red');
+  rectMode(CORNER);
+  rect(0, 0, 150, windowHeight);
+
 }
