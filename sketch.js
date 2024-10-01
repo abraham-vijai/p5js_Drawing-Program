@@ -39,7 +39,7 @@ function setup() {
 
   // Insert all the buttons into the button array
   for (let i = 0; i < 10; i++) {
-    buttons.push(new Button(TOOLBAR_WIDTH/2, i*70+30, 30, 30, labels[i], actions[i]));
+    buttons.push(new Button(TOOLBAR_WIDTH/2, i*70+30, 30, 30, labels[i], actions[i], i));
   }
   
 }
@@ -59,13 +59,6 @@ function draw() {
   strokeWeight(10)
   line(TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight)
 
-  // Load Images
-  imageMode(CENTER)
-  noFill();
-  for (let i = 0; i < 10; i++) {
-    image(imageList[i],TOOLBAR_WIDTH/2, i*70+30, 30, 30);
-  }
-  
   // Draw all buttons
   buttons.forEach(button => button.draw());
 }
