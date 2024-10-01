@@ -75,11 +75,6 @@ function draw() {
   strokeWeight(50);
   stroke('blue');
   point(currX, currY);
-  console.log("Current coordinate: "+currX+" "+currY)
-
-  
-  // point(x1,y1)
-  // point(92,530);
 }
 
 function preload() {
@@ -122,16 +117,10 @@ function rotateCW() {
 
   // Multiply by the rotation matrix
   resultantMatrix = Matrices.matrixMultiply(rotationMatrix, myMatrix);
-  Matrices.printMatrix(resultantMatrix);
 
-  console.log(myMatrix[0][0]+" "+myMatrix[1][0]);
   // Store the new points in the resultant matrix
   currX = resultantMatrix[0][0];
   currY = resultantMatrix[1][0];
-  console.log(currX+" "+currY)
-  // currX += 20;
-  // currY += 20;
-
 }
 
 function rotateCCW() {
@@ -144,11 +133,32 @@ function rotateVertices(angle) {
 
 }
 
-function translateVertices(dx, dy) {
-  console.log("translateVertices called");
-  console.log(dy+" "+dx)
+function translateVertices(dx, dy) {  
+  // Define the matrices
+  const translationMatrix = [
+    [1, 0, dx],
+    [0, 1, dy],
+    [0, 0, 1]
+  ];
+  let myMatrix = [];
 
+  // Create the matrix to store the points
+  myMatrix = new Matrices();
+  Matrices.createMatrix(myMatrix,3,1);
+
+  // Store the points
+  myMatrix[0][0] = currX;
+  myMatrix[1][0] = currY;
+  myMatrix[2][0] = 1;
+  
+  // Multiply by the rotation matrix
+  resultantMatrix = Matrices.matrixMultiply(translationMatrix, myMatrix);
+
+  // Store the new points in the resultant matrix
+  currX = resultantMatrix[0][0];
+  currY = resultantMatrix[1][0];
 }
+
 
 function scaleVertices(factor) {
   console.log("scaleVertices called");
