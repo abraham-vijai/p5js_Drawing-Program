@@ -15,6 +15,8 @@ let isPivotToggled = false;
 // Array to store images
 var imageList = []; 
 
+// Array to store vertices
+let vertexArray = []
 // Array to store buttons
 let buttons = [];
 
@@ -74,10 +76,17 @@ function draw() {
   // Draw all buttons
   buttons.forEach(button => button.draw());
 
-  // Define a point in the canvas area
-  strokeWeight(30);
-  stroke('blue');
-  point(currX, currY);
+  // Draw the shape
+  stroke("red");
+  strokeWeight(10);
+  noFill();
+  beginShape();
+  for (let i = 0; i < vertexArray.length; i++) {
+    let v = vertexArray[i];
+    point(v[0],v[1]);
+    vertex(v[0], v[1]); // Use the vertex from vertexArray
+  }
+  endShape(CLOSE)
 
   // Test pivot point
   strokeWeight(10);
@@ -101,7 +110,7 @@ function preload() {
 function mousePressed() {
   // Check if a button is clicked
   buttons.forEach(button => button.clicked(mouseX, mouseY));
-  
+
   // if pivot mode is toggled, set the pivot mode
   if(isPivotToggled){
     if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
@@ -111,20 +120,23 @@ function mousePressed() {
   }
   // If not set the vertices
   else {
-    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
-      currX = mouseX;
-      currY = mouseY;
+    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {   
+      // Push the vertex into the vertex array
+      vertexArray.push([mouseX, mouseY]);      
     }
   }
 
 }
 
 function rotateVertices(angle) {
+  // Check if pivot mode is on
   if(isPivotToggled){
     return 0;
   }
 
+  // Convert to radians
   let radian = (PI/180)*angle
+
   // Move pivot to origin
   let translatedMatrix = translateVertices(-pivotX, -pivotY, currX, currY);
 
