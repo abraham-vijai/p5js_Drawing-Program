@@ -10,6 +10,7 @@ let currX = 500;
 let currY = 300;
 let pivotX = 500;
 let pivotY = 500;
+let isPivotToggled = false;
 
 // Array to store images
 var imageList = []; 
@@ -102,11 +103,20 @@ function preload() {
 function mousePressed() {
   // Check if a button is clicked
   buttons.forEach(button => button.clicked(mouseX, mouseY));
-
-  if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
-    currX = mouseX;
-    currY = mouseY;
+  
+  // if pivot mode is toggled, set the pivot mode
+  if(isPivotToggled){
+    pivotX = mouseX;
+    pivotY = mouseY;
   }
+  // If not set the vertices
+  else {
+    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
+      currX = mouseX;
+      currY = mouseY;
+    }
+  }
+
 }
 
 // Function implementations for button actions
@@ -156,24 +166,23 @@ function translateVertices(dx, dy, x1, y1) {
   return resultantMatrix; // Return the translated matrix
 }
 
-
 function scaleVertices(factor) {
   console.log("scaleVertices called");
   console.log(factor);
-
 }
 
 function clearCanvas() {
   console.log("clearCanvas called");
-
 }
 
-
 function togglePivotMode() {
-  console.log("togglePivotMode called");
-
+  if(isPivotToggled) {
+    isPivotToggled = false;
+  }
+  else {
+    isPivotToggled = true;
+  }
 }
 
 function mouseClicked() {
-
 }
