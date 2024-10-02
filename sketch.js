@@ -130,15 +130,12 @@ function mousePressed() {
 
 function rotateVertices(angle) {
   // Check if pivot mode is on
-  if(isPivotToggled){
+  if (isPivotToggled) {
     return 0;
   }
-
+  let translatedMatrix = [];
   // Convert to radians
-  let radian = (PI/180)*angle
-
-  // Move pivot to origin
-  let translatedMatrix = translateVertices(-pivotX, -pivotY, currX, currY);
+  let radian = (PI / 180) * angle
 
   // Define the rotation matrix
   const rotationMatrix = [
@@ -146,16 +143,22 @@ function rotateVertices(angle) {
     [sin(radian), cos(radian)]
   ];
 
-  // Multiply translated matrix with rotation matrix
-  let resultantMatrix = Matrices.matrixMultiply(rotationMatrix, translatedMatrix);
+  // Move pivot to origin
+  for (let i = 0; i < vertexArray.length; i++) {
+    translatedMatrix = translateVertices(-pivotX, -pivotY, vertexArray[i][0], vertexArray[i][1]);
+    // Multiply translated matrix with rotation matrix
+    let resultantMatrix = Matrices.matrixMultiply(rotationMatrix, translatedMatrix);
 
-  // Move back from origin to pivot
-  let finalMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
+    // Move back from origin to pivot
+    let finalMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
 
-  // Store the new points in the resultant matrix
-  currX = finalMatrix[0][0];
-  currY = finalMatrix[1][0];
+    // Store the new points in the resultant matrix
+    vertexArray[i][0] = finalMatrix[0][0];
+    vertexArray[i][1] = finalMatrix[1][0];
+  }
 }
+
+
 
 function translateVertices(dx, dy, x1, y1) {
   if(isPivotToggled){
