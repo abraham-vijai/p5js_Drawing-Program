@@ -6,15 +6,12 @@ const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
 
 // Define global variables
-let currX = 500;
-let currY = 300;
 let pivotX = 500;
 let pivotY = 500;
 let isPivotToggled = false;
-let isClear = false;
 
 // Array to store images
-var imageList = [];
+let imageList = [];
 
 // Array to store vertices
 let vertexArray = []
@@ -39,10 +36,10 @@ const labels = [
 const actions = [
   () => rotateVertices(ROTATE_FACTOR),
   () => rotateVertices(-ROTATE_FACTOR),
-  () => translateVertices(-TRANSLATE_FACTOR, 0, currX, currY),
-  () => translateVertices(TRANSLATE_FACTOR, 0, currX, currY),
-  () => translateVertices(0, -TRANSLATE_FACTOR, currX, currY),
-  () => translateVertices(0, TRANSLATE_FACTOR, currX, currY),
+  () => translateVertices(-TRANSLATE_FACTOR, 0, 0, 0),
+  () => translateVertices(TRANSLATE_FACTOR, 0, 0, 0),
+  () => translateVertices(0, -TRANSLATE_FACTOR, 0, 0),
+  () => translateVertices(0, TRANSLATE_FACTOR, 0, 0),
   () => scaleVertices(SCALE_UP_FACTOR),
   () => scaleVertices(SCALE_DOWN_FACTOR),
   clearCanvas,
@@ -54,7 +51,7 @@ function setup() {
 
   // Insert all the buttons into the button array
   for (let i = 0; i < 10; i++) {
-    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i));
+    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i,isPivotToggled));
   }
 }
 
@@ -87,7 +84,7 @@ function draw() {
   }
   endShape(CLOSE)
 
-  // Test pivot point
+  // Pivot point
   strokeWeight(10);
   stroke('green');
   point(pivotX, pivotY);
@@ -132,7 +129,7 @@ function rotateVertices(angle) {
   if (isPivotToggled) {
     return 0;
   }
-  
+
   // Convert to radians
   let radian = (PI / 180) * angle 
 

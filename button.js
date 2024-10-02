@@ -28,6 +28,9 @@ class Button {
   */
   draw() {
     // Draw the border
+    if(this.imageIndex == 9 && isPivotToggled) {
+        fill('white');
+    }
     strokeWeight(3);
     stroke('black')
     rectMode(CENTER);
@@ -43,7 +46,6 @@ class Button {
     // Draw the image
     imageMode(CENTER);
     image(imageList[this.imageIndex],TOOLBAR_WIDTH/2, this.imageIndex*70+30, 30, 30);
-
   }
 
   /*
@@ -57,25 +59,5 @@ class Button {
         mouseY > this.y-(this.height/2) && mouseY < this.y-(this.height/2)+this.height) {
       this.action();
     }
-  }
-
-  /*
-  Method name  : static preload
-  Description  : Loads images for buttons before drawing
-  Parameters   : None
-  Return value : None
-  */
-  static preload() {
-    Button.imageList[0] = loadImage("assets/cw45.png");
-    Button.imageList[1] = loadImage("assets/ccw45.png");
-    Button.imageList[2] = loadImage("assets/arrowLeft.png");
-    Button.imageList[3] = loadImage("assets/arrowRight.png");
-    Button.imageList[4] = loadImage("assets/arrowUp.png");
-    Button.imageList[5] = loadImage("assets/arrowDown.png");
-    Button.imageList[6] = loadImage("assets/larger.png");
-    Button.imageList[7] = loadImage("assets/smaller.png");
-    Button.imageList[8] = loadImage("assets/clear.png");
-    Button.imageList[9] = loadImage("assets/pivot.png");
-
   }
 }
