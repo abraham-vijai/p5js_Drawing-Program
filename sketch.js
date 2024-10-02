@@ -11,6 +11,7 @@ let currY = 300;
 let pivotX = 500; 
 let pivotY = 500;
 let isPivotToggled = false;
+let isClear = false;
 
 // Array to store images
 var imageList = []; 
@@ -202,7 +203,15 @@ function scaleVertices(factor) {
 }
 
 function clearCanvas() {
-  console.log("clearCanvas called");
+  // Clear the vertex array
+  vertexArray = [];
+  
+  // Reset the pivot point
+  pivotX = windowWidth / 2; 
+  pivotY = windowHeight / 2;
+
+  // Redraw the background 
+  background(150);
 }
 
 function togglePivotMode() {
