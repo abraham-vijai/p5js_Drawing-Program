@@ -8,13 +8,13 @@ const ROTATE_FACTOR = 45;
 // Define global variables
 let currX = 500;
 let currY = 300;
-let pivotX = 500; 
+let pivotX = 500;
 let pivotY = 500;
 let isPivotToggled = false;
 let isClear = false;
 
 // Array to store images
-var imageList = []; 
+var imageList = [];
 
 // Array to store vertices
 let vertexArray = []
@@ -54,13 +54,11 @@ function setup() {
 
   // Insert all the buttons into the button array
   for (let i = 0; i < 10; i++) {
-    buttons.push(new Button(TOOLBAR_WIDTH/2, i*70+30, 30, 30, labels[i], actions[i], i));
+    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i));
   }
-  
 }
 
 function draw() {
-
   background(150);
 
   // Create Toolbar
@@ -68,7 +66,7 @@ function draw() {
   fill('red');
   rectMode(CORNER);
   rect(0, 0, TOOLBAR_WIDTH, windowHeight);
-  
+
   // Create Border
   stroke('black')
   strokeWeight(10)
@@ -84,7 +82,7 @@ function draw() {
   beginShape();
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
-    point(v[0],v[1]);
+    point(v[0], v[1]);
     vertex(v[0], v[1]); // Use the vertex from vertexArray
   }
   endShape(CLOSE)
@@ -113,7 +111,7 @@ function mousePressed() {
   buttons.forEach(button => button.clicked(mouseX, mouseY));
 
   // if pivot mode is toggled, set the pivot mode
-  if(isPivotToggled){
+  if (isPivotToggled) {
     if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
       pivotX = mouseX;
       pivotY = mouseY;
@@ -121,9 +119,9 @@ function mousePressed() {
   }
   // If not set the vertices
   else {
-    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {   
+    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
       // Push the vertex into the vertex array
-      vertexArray.push([mouseX, mouseY]);      
+      vertexArray.push([mouseX, mouseY]);
     }
   }
 
@@ -134,20 +132,20 @@ function rotateVertices(angle) {
   if (isPivotToggled) {
     return 0;
   }
-
-  let translatedMatrix = [];
-  let radian = (PI / 180) * angle // Convert to radians
+  
+  // Convert to radians
+  let radian = (PI / 180) * angle 
 
   // Define the rotation matrix
   const rotationMatrix = [
     [cos(radian), -sin(radian)],
     [sin(radian), cos(radian)]
   ];
-  
+
   // Rotate each vertex in the array
   for (let i = 0; i < vertexArray.length; i++) {
     // Move the system to origin
-    translatedMatrix = translateVertices(-pivotX, -pivotY, vertexArray[i][0], vertexArray[i][1]);
+    let translatedMatrix = translateVertices(-pivotX, -pivotY, vertexArray[i][0], vertexArray[i][1]);
 
     // Multiply translated matrix with rotation matrix
     let resultantMatrix = Matrices.matrixMultiply(rotationMatrix, translatedMatrix);
@@ -161,11 +159,9 @@ function rotateVertices(angle) {
   }
 }
 
-
-
 function translateVertices(dx, dy, x1, y1) {
   // Check if pivot mode is on
-  if(isPivotToggled){
+  if (isPivotToggled) {
     return 0;
   }
 
@@ -199,15 +195,37 @@ function translateVertices(dx, dy, x1, y1) {
 
 function scaleVertices(factor) {
   console.log("scaleVertices called");
+
   console.log(factor);
+  const scalingMatrix = [
+    [factor, 0, 0],
+    [0, factor, 0],
+    [0, 0, 1]
+  ];
+
+  for (let i = 0; i < vertexArray.length; i++) {
+    // Move the system to origin
+    let translatedMatrix = translateVertices(-pivotX, -pivotY, vertexArray[i][0], vertexArray[i][1]);
+
+    // Multiply translated matrix with rotation matrix
+    let resultantMatrix = Matrices.matrixMultiply(scalingMatrix, translatedMatrix);
+
+    // Move back from origin to pivot
+    resultantMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
+
+    // Store the new points in the resultant matrix
+    vertexArray[i][0] = resultantMatrix[0][0];
+    vertexArray[i][1] = resultantMatrix[1][0]
+  }
+
 }
 
 function clearCanvas() {
   // Clear the vertex array
   vertexArray = [];
-  
+
   // Reset the pivot point
-  pivotX = windowWidth / 2; 
+  pivotX = windowWidth / 2;
   pivotY = windowHeight / 2;
 
   // Redraw the background 
@@ -215,13 +233,10 @@ function clearCanvas() {
 }
 
 function togglePivotMode() {
-  if(isPivotToggled) {
+  if (isPivotToggled) {
     isPivotToggled = false;
   }
   else {
     isPivotToggled = true;
   }
-}
-
-function mouseClicked() {
 }
