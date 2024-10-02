@@ -133,57 +133,65 @@ function rotateVertices(angle) {
   if (isPivotToggled) {
     return 0;
   }
+
   let translatedMatrix = [];
-  // Convert to radians
-  let radian = (PI / 180) * angle
+  let radian = (PI / 180) * angle // Convert to radians
 
   // Define the rotation matrix
   const rotationMatrix = [
     [cos(radian), -sin(radian)],
     [sin(radian), cos(radian)]
   ];
-
-  // Move pivot to origin
+  
+  // Rotate each vertex in the array
   for (let i = 0; i < vertexArray.length; i++) {
+    // Move the system to origin
     translatedMatrix = translateVertices(-pivotX, -pivotY, vertexArray[i][0], vertexArray[i][1]);
+
     // Multiply translated matrix with rotation matrix
     let resultantMatrix = Matrices.matrixMultiply(rotationMatrix, translatedMatrix);
 
     // Move back from origin to pivot
-    let finalMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
+    resultantMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
 
     // Store the new points in the resultant matrix
-    vertexArray[i][0] = finalMatrix[0][0];
-    vertexArray[i][1] = finalMatrix[1][0];
+    vertexArray[i][0] = resultantMatrix[0][0];
+    vertexArray[i][1] = resultantMatrix[1][0];
   }
 }
 
 
 
 function translateVertices(dx, dy, x1, y1) {
+  // Check if pivot mode is on
   if(isPivotToggled){
     return 0;
   }
 
+  // Define the matrix to be translated
+  let pointMatrix = [
+    [x1],
+    [y1],
+    [1]
+  ];
   // Define the translation matrix
   const translationMatrix = [
     [1, 0, dx],
     [0, 1, dy],
     [0, 0, 1]
   ];
-  
-  // Create the matrix to store the point
-  let pointMatrix = [
-    [x1],
-    [y1],
-    [1]
-  ];
 
   // Multiply point by the translation matrix
   let resultantMatrix = Matrices.matrixMultiply(translationMatrix, pointMatrix);
-  
-  currX = resultantMatrix[0][0];
-  currY = resultantMatrix[1][0];
+
+  x1 = resultantMatrix[0][0];
+  y1 = resultantMatrix[1][0];
+
+  // Rotate each vertex in the array
+  for (let i = 0; i < vertexArray.length; i++) {
+    vertexArray[i][0] += dx;
+    vertexArray[i][1] += dy;
+  }
 
   return resultantMatrix; // Return the translated matrix
 }
