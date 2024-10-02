@@ -51,6 +51,7 @@ class Matrices {
 
         return resultantMatrix;
     }
+    
     /*
     Method name  : checkMultiplicity
     Description  : Checks whether two matrices can be multiplied.
