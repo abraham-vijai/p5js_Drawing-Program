@@ -73,14 +73,15 @@ function draw() {
   beginShape();
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
-
-    // Draw the points
-    Shapes.drawPoint("red", 6, v[0], v[1])
-
-    // Draw the line
-    Shapes.drawVertex('blue', 3, v[0],v[1]);
+    Shapes.drawVertex('blue', 3, v[0], v[1]);
   }
-  endShape(CLOSE)
+  endShape(CLOSE);
+
+  // Draw the points on top of the lines
+  for (let i = 0; i < vertexArray.length; i++) {
+    let v = vertexArray[i];
+    Shapes.drawPoint("red", 6, v[0], v[1]); 
+  }
 
   // Pivot point
   Shapes.drawPoint("green", 6, pivotX, pivotY)
