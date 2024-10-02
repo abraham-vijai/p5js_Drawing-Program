@@ -15,43 +15,44 @@ let imageList = [];
 
 // Array to store vertices
 let vertexArray = []
+
 // Array to store buttons
 let buttons = [];
-
-// Array of all button labels
-const labels = [
-  'Rotate CW',
-  'Rotate CCW',
-  'Move Left',
-  'Move Right',
-  'Move Up',
-  'Move Down',
-  'Scale Up',
-  'Scale Down',
-  'Clear',
-  'Toggle Pivot'
-];
-
-// Array of all button actions
-const actions = [
-  () => rotateVertices(ROTATE_FACTOR),
-  () => rotateVertices(-ROTATE_FACTOR),
-  () => translateVertices(-TRANSLATE_FACTOR, 0, 0, 0),
-  () => translateVertices(TRANSLATE_FACTOR, 0, 0, 0),
-  () => translateVertices(0, -TRANSLATE_FACTOR, 0, 0),
-  () => translateVertices(0, TRANSLATE_FACTOR, 0, 0),
-  () => scaleVertices(SCALE_UP_FACTOR),
-  () => scaleVertices(SCALE_DOWN_FACTOR),
-  clearCanvas,
-  togglePivotMode
-];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  // Array of all button actions
+  const actions = [
+    () => rotateVertices(ROTATE_FACTOR),
+    () => rotateVertices(-ROTATE_FACTOR),
+    () => translateVertices(-TRANSLATE_FACTOR, 0, 0, 0),
+    () => translateVertices(TRANSLATE_FACTOR, 0, 0, 0),
+    () => translateVertices(0, -TRANSLATE_FACTOR, 0, 0),
+    () => translateVertices(0, TRANSLATE_FACTOR, 0, 0),
+    () => scaleVertices(SCALE_UP_FACTOR),
+    () => scaleVertices(SCALE_DOWN_FACTOR),
+    clearCanvas,
+    togglePivotMode
+  ];
+
+  // Array of all button labels
+  const labels = [
+    'Rotate CW',
+    'Rotate CCW',
+    'Move Left',
+    'Move Right',
+    'Move Up',
+    'Move Down',
+    'Scale Up',
+    'Scale Down',
+    'Clear',
+    'Toggle Pivot'
+  ];
+
   // Insert all the buttons into the button array
   for (let i = 0; i < 10; i++) {
-    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i,isPivotToggled));
+    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i, isPivotToggled));
   }
 }
 
@@ -60,11 +61,11 @@ function draw() {
 
   // Create Toolbar
   noStroke();
-  Shapes.drawRectangle('', CORNER, 0, 0, 0, TOOLBAR_WIDTH, windowHeight,'red')
+  Shapes.drawRectangle('', CORNER, 0, 0, 0, TOOLBAR_WIDTH, windowHeight, 'red')
 
   // Create Border
-  Shapes.drawLine('black',10,TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight)
-  
+  Shapes.drawLine('black', 10, TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight)
+
   // Draw all buttons
   buttons.forEach(button => button.draw());
 
@@ -86,7 +87,6 @@ function draw() {
   // Pivot point
   Shapes.drawPoint("green", 6, pivotX, pivotY)
 }
-
 
 function preload() {
   imageList[0] = loadImage("assets/cw45.png")
@@ -129,7 +129,7 @@ function rotateVertices(angle) {
   }
 
   // Convert to radians
-  let radian = (PI / 180) * angle 
+  let radian = (PI / 180) * angle
 
   // Define the rotation matrix
   const rotationMatrix = [
