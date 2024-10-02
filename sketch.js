@@ -8,7 +8,7 @@ const ROTATE_FACTOR = 45;
 // Define global variables
 let currX = 500;
 let currY = 300;
-let pivotX = 500;
+let pivotX = 500; 
 let pivotY = 500;
 let isPivotToggled = false;
 
@@ -96,8 +96,6 @@ function preload() {
   imageList[7] = loadImage("assets/smaller.png")
   imageList[8] = loadImage("assets/clear.png")
   imageList[9] = loadImage("assets/pivot.png")
-
-  // ? maybe rewrite it to cycle throught the folder
 }
 
 function mousePressed() {
@@ -106,8 +104,10 @@ function mousePressed() {
   
   // if pivot mode is toggled, set the pivot mode
   if(isPivotToggled){
-    pivotX = mouseX;
-    pivotY = mouseY;
+    if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
+      pivotX = mouseX;
+      pivotY = mouseY;
+    }
   }
   // If not set the vertices
   else {
@@ -119,8 +119,11 @@ function mousePressed() {
 
 }
 
-// Function implementations for button actions
 function rotateVertices(angle) {
+  if(isPivotToggled){
+    return 0;
+  }
+
   let radian = (PI/180)*angle
   // Move pivot to origin
   let translatedMatrix = translateVertices(-pivotX, -pivotY, currX, currY);
@@ -143,6 +146,10 @@ function rotateVertices(angle) {
 }
 
 function translateVertices(dx, dy, x1, y1) {
+  if(isPivotToggled){
+    return 0;
+  }
+
   // Define the translation matrix
   const translationMatrix = [
     [1, 0, dx],
