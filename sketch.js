@@ -78,9 +78,7 @@ function draw() {
     Shapes.drawPoint("red", 6, v[0], v[1])
 
     // Draw the line
-    stroke("blue");
-    strokeWeight(3);
-    vertex(v[0], v[1]); // Use the vertex from vertexArray
+    Shapes.drawVertex('blue', 3, v[0],v[1]);
   }
   endShape(CLOSE)
 

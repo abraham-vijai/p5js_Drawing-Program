@@ -16,6 +16,12 @@ class Shapes {
         strokeWeight(weight);
         point(x, y);
     }
+    
+    static drawVertex(color, weight, x, y) {
+        stroke(color);
+        strokeWeight(weight);
+        vertex(x, y);
+    }
 
     static drawLine(color, weight, x1, y1, x2, y2) {
         stroke(color)
