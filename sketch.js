@@ -6,8 +6,8 @@ const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
 
 // Define global variables
-let pivotX = 500;
-let pivotY = 500;
+let pivotX = (window.innerWidth+TOOLBAR_WIDTH)/2;
+let pivotY = window.innerHeight/2;
 let isPivotToggled = false;
 
 // Array to store images
