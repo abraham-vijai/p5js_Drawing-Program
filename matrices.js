@@ -1,7 +1,9 @@
+/*
+Name        : Matrices
+Description : Provides static methods for various matrix operations, including creating matrices, multiplying matrices, checking matrix multiplicity, and printing matrices to the console. This utility class simplifies operations with matrices and offers essential mathematical functions for linear algebra tasks.
+*/
 class Matrices {
-    constructor() {
-
-    }
+    constructor() { }
 
     /*
     Method name  : createMatrix
@@ -59,17 +61,17 @@ class Matrices {
 
         let matrix1Columns = matrix1[0].length;
         let matrix2Rows = Object.keys(matrix2).length;
-    
+
         // Check if rows of matrix2 is equal to the columns of matrix1 
         if (matrix2Rows != matrix1Columns) {
-        console.log("ERROR: Cannot multiply these two matrices");
-        console.log("");
-        return false;
+            console.log("ERROR: Cannot multiply these two matrices");
+            console.log("");
+            return false;
         }
-    
+
         return true;
     }
-  
+
     /*
     Method name  : printMatrix
     Description  : Prints a matrix to the console.
@@ -79,7 +81,7 @@ class Matrices {
     static printMatrix(matrix) {
         for (let i = 0; i < Object.keys(matrix).length; i++) {
             console.log(..."|" + matrix[i] + "|"); // Spread operator
-        }    
+        }
     }
-  
+
 }
