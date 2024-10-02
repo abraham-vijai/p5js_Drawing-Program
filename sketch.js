@@ -11,10 +11,12 @@ const TRANSLATE_FACTOR = 10;
 const SCALE_UP_FACTOR = 1.05;
 const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
+const DEFAULT_X = (window.innerWidth + TOOLBAR_WIDTH) / 2
+const DEFAULT_Y = window.innerHeight / 2
 
 // Define global variables
-let pivotX = (window.innerWidth + TOOLBAR_WIDTH) / 2;
-let pivotY = window.innerHeight / 2;
+let pivotX = DEFAULT_X;
+let pivotY = DEFAULT_Y;
 let isPivotToggled = false;
 
 // Array to store images
@@ -160,10 +162,12 @@ Parameters   : None
 Return value : None
 */
 function clearCanvas() {
+  // Clear the vertex array
   vertexArray = [];
-  pivotX = windowWidth / 2;
-  pivotY = windowHeight / 2;
-  background(150);
+  
+  // Set the pivot point to default position
+  pivotX = DEFAULT_X
+  pivotY = DEFAULT_Y
 }
 
 /*
