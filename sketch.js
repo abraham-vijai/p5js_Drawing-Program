@@ -6,8 +6,10 @@ const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
 
 // Define global variables
-let currX = 0;
-let currY = 0;
+let currX = 500;
+let currY = 300;
+let pivotX = 500;
+let pivotY = 500;
 
 // Array to store images
 var imageList = []; 
@@ -33,10 +35,10 @@ const labels = [
 const actions = [
   () => rotateVertices(ROTATE_FACTOR),
   () => rotateVertices(-ROTATE_FACTOR),
-  () => translateVertices(-TRANSLATE_FACTOR, 0),
-  () => translateVertices(TRANSLATE_FACTOR, 0),
-  () => translateVertices(0, -TRANSLATE_FACTOR),
-  () => translateVertices(0, TRANSLATE_FACTOR),
+  () => translateVertices(-TRANSLATE_FACTOR, 0, currX, currY),
+  () => translateVertices(TRANSLATE_FACTOR, 0, currX, currY),
+  () => translateVertices(0, -TRANSLATE_FACTOR, currX, currY),
+  () => translateVertices(0, TRANSLATE_FACTOR, currX, currY),
   () => scaleVertices(SCALE_UP_FACTOR),
   () => scaleVertices(SCALE_DOWN_FACTOR),
   clearCanvas,
@@ -72,9 +74,14 @@ function draw() {
   buttons.forEach(button => button.draw());
 
   // Define a point in the canvas area
-  strokeWeight(50);
+  strokeWeight(30);
   stroke('blue');
   point(currX, currY);
+
+  // Test pivot point
+  strokeWeight(10);
+  stroke('green');
+  point(pivotX, pivotY);
 }
 
 function preload() {
@@ -95,58 +102,58 @@ function preload() {
 function mousePressed() {
   // Check if a button is clicked
   buttons.forEach(button => button.clicked(mouseX, mouseY));
+
+  if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
+    currX = mouseX;
+    currY = mouseY;
+  }
 }
 
 // Function implementations for button actions
 function rotateVertices(angle) {
-  // Define the matrices
+  let radian = (PI/180)*angle
+  // Move pivot to origin
+  let translatedMatrix = translateVertices(-pivotX, -pivotY, currX, currY);
+
+  // Define the rotation matrix
   const rotationMatrix = [
-    [cos(angle), -sin(angle)],
-    [sin(angle), cos(angle)]
+    [cos(radian), -sin(radian)],
+    [sin(radian), cos(radian)]
   ];
-  let myMatrix = [];
-  let resultantMatrix = [];
 
-  // Create the matrix to store the points
-  myMatrix = new Matrices();
-  Matrices.createMatrix(myMatrix,2,1);
+  // Multiply translated matrix with rotation matrix
+  let resultantMatrix = Matrices.matrixMultiply(rotationMatrix, translatedMatrix);
 
-  // Store the points
-  myMatrix[0][0] = currX;
-  myMatrix[1][0] = currY;
-
-  // Multiply by the rotation matrix
-  resultantMatrix = Matrices.matrixMultiply(rotationMatrix, myMatrix);
+  // Move back from origin to pivot
+  let finalMatrix = translateVertices(pivotX, pivotY, resultantMatrix[0][0], resultantMatrix[1][0]);
 
   // Store the new points in the resultant matrix
-  currX = resultantMatrix[0][0];
-  currY = resultantMatrix[1][0];
+  currX = finalMatrix[0][0];
+  currY = finalMatrix[1][0];
 }
 
-function translateVertices(dx, dy) {  
-  // Define the matrices
+function translateVertices(dx, dy, x1, y1) {
+  // Define the translation matrix
   const translationMatrix = [
     [1, 0, dx],
     [0, 1, dy],
     [0, 0, 1]
   ];
-  let myMatrix = [];
-
-  // Create the matrix to store the points
-  myMatrix = new Matrices();
-  Matrices.createMatrix(myMatrix,3,1);
-
-  // Store the points
-  myMatrix[0][0] = currX;
-  myMatrix[1][0] = currY;
-  myMatrix[2][0] = 1;
   
-  // Multiply by the rotation matrix
-  resultantMatrix = Matrices.matrixMultiply(translationMatrix, myMatrix);
+  // Create the matrix to store the point
+  let pointMatrix = [
+    [x1],
+    [y1],
+    [1]
+  ];
 
-  // Store the new points in the resultant matrix
+  // Multiply point by the translation matrix
+  let resultantMatrix = Matrices.matrixMultiply(translationMatrix, pointMatrix);
+  
   currX = resultantMatrix[0][0];
   currY = resultantMatrix[1][0];
+
+  return resultantMatrix; // Return the translated matrix
 }
 
 
@@ -168,8 +175,5 @@ function togglePivotMode() {
 }
 
 function mouseClicked() {
-  if (mouseX > TOOLBAR_WIDTH && mouseX < windowWidth) {
-    currX = mouseX;
-    currY = mouseY;
-  }
+
 }
