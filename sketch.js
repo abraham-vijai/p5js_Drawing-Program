@@ -60,15 +60,11 @@ function draw() {
 
   // Create Toolbar
   noStroke();
-  fill('red');
-  rectMode(CORNER);
-  rect(0, 0, TOOLBAR_WIDTH, windowHeight);
+  Shapes.drawRectangle('', CORNER, 0, 0, 0, TOOLBAR_WIDTH, windowHeight,'red')
 
   // Create Border
-  stroke('black')
-  strokeWeight(10)
-  line(TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight)
-
+  Shapes.drawLine('black',10,TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight)
+  
   // Draw all buttons
   buttons.forEach(button => button.draw());
 
@@ -78,9 +74,7 @@ function draw() {
     let v = vertexArray[i];
 
     // Draw the points
-    stroke("red");
-    strokeWeight(10);
-    point(v[0], v[1]);
+    Shapes.drawPoint("red", 6, v[0], v[1])
 
     // Draw the line
     stroke("blue");
@@ -90,10 +84,9 @@ function draw() {
   endShape(CLOSE)
 
   // Pivot point
-  strokeWeight(6);
-  stroke('green');
-  point(pivotX, pivotY);
+  Shapes.drawPoint("green", 6, pivotX, pivotY)
 }
+
 
 function preload() {
   imageList[0] = loadImage("assets/cw45.png")

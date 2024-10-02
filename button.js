@@ -28,24 +28,17 @@ class Button {
   */
   draw() {
     // Draw the border
-    if(this.imageIndex == 9 && isPivotToggled) {
-        fill('white');
+    if (this.imageIndex == 9 && isPivotToggled) {
+      Shapes.drawRectangle('black', CENTER, 3, this.x, this.y, this.width, this.height, 'white')
     }
-    strokeWeight(3);
-    stroke('black')
-    rectMode(CENTER);
-    rect(this.x, this.y, this.width, this.height);
+
+    Shapes.drawRectangle('black', CENTER, 3, this.x, this.y, this.width, this.height, '#00000000')
 
     // Draw the label
-    fill(0);
-    strokeWeight(0.1);
-    textAlign(CENTER, CENTER);
-    text(this.label, this.x, this.y + this.height / 2 + 10);
-    noFill();
+    Shapes.drawText(CENTER, CENTER, this.label, 0.1, 0, this.x, this.y + this.height / 2 + 10)
 
     // Draw the image
-    imageMode(CENTER);
-    image(imageList[this.imageIndex],TOOLBAR_WIDTH/2, this.imageIndex*70+30, 30, 30);
+    Shapes.drawImage(imageList[this.imageIndex], CENTER, TOOLBAR_WIDTH / 2, this.imageIndex * 70 + 30, 30, 30)
   }
 
   /*
@@ -55,8 +48,8 @@ class Button {
   Return value : None
   */
   clicked(mouseX, mouseY) {
-    if (mouseX > this.x-(this.height/2) && mouseX < this.x-(this.height/2) + this.width && 
-        mouseY > this.y-(this.height/2) && mouseY < this.y-(this.height/2)+this.height) {
+    if (mouseX > this.x - (this.height / 2) && mouseX < this.x - (this.height / 2) + this.width &&
+      mouseY > this.y - (this.height / 2) && mouseY < this.y - (this.height / 2) + this.height) {
       this.action();
     }
   }
