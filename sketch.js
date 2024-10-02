@@ -73,19 +73,24 @@ function draw() {
   buttons.forEach(button => button.draw());
 
   // Draw the shape
-  stroke("red");
-  strokeWeight(10);
-  noFill();
   beginShape();
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
+
+    // Draw the points
+    stroke("red");
+    strokeWeight(10);
     point(v[0], v[1]);
+
+    // Draw the line
+    stroke("blue");
+    strokeWeight(3);
     vertex(v[0], v[1]); // Use the vertex from vertexArray
   }
   endShape(CLOSE)
 
   // Pivot point
-  strokeWeight(10);
+  strokeWeight(6);
   stroke('green');
   point(pivotX, pivotY);
 }
