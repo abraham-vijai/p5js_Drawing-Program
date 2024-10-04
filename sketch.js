@@ -13,6 +13,9 @@ const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
 const DEFAULT_X = (window.innerWidth + TOOLBAR_WIDTH) / 2
 const DEFAULT_Y = window.innerHeight / 2
+const TOOLBAR_COLOR = '#D3EE98';
+const BORDER_COLOR = '#A0D683';
+const BACKGROUND_COLOR = 255;
 
 // Define global variables
 let pivotX = DEFAULT_X;
@@ -69,7 +72,7 @@ function setup() {
 
   // Insert all the buttons into the button array
   for (let i = 0; i < 10; i++) {
-    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 30, 30, labels[i], actions[i], i, isPivotToggled));
+    buttons.push(new Button(TOOLBAR_WIDTH / 2, i * 70 + 30, 40, 40, labels[i], actions[i], i, isPivotToggled));
   }
 }
 
@@ -80,14 +83,14 @@ Parameters   : None
 Return value : None
 */
 function draw() {
-  background(150);
+  background(BACKGROUND_COLOR);
 
   // Create Toolbar
   noStroke();
-  Shapes.drawRectangle('', CORNER, 0, 0, 0, TOOLBAR_WIDTH, windowHeight, 'red');
+  Shapes.drawRectangle('', CORNER, 0, 0, 0, TOOLBAR_WIDTH, windowHeight, TOOLBAR_COLOR);
 
   // Create Border
-  Shapes.drawLine('black', 10, TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight);
+  Shapes.drawLine(BORDER_COLOR, 10, TOOLBAR_WIDTH, 0, TOOLBAR_WIDTH, windowHeight);
 
   // Draw all buttons
   buttons.forEach(button => button.draw());
