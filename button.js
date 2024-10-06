@@ -4,9 +4,9 @@ Description : Represents a button that can be drawn on the canvas and interacted
               Each button can display an image, have a label, and trigger an action when clicked.
 */
 class Button {
+  
   // Static image list shared among all instances
   static imageList = [];
-
   /*
   Method name  : constructor
   Description  : Initializes a button with given properties
@@ -32,18 +32,21 @@ class Button {
   Return value : None
   */
   draw() {
+    const BUTTON_FILL_COLOR =  '#FEFF9F';
+    const BUTTON_BORDER_COLOR = '#FEFF9F';
+    const TOGGLE_COLOR = '#557345';
       // Draw the border
       if (this.imageIndex == 9 && isPivotToggled) {
-          Shapes.drawRectangle('black', CENTER, 3, this.x, this.y, this.width, this.height, 'white')
+          Shapes.drawRectangle(TOGGLE_COLOR, CENTER, 10, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
       }
 
-      Shapes.drawRectangle('black', CENTER, 3, this.x, this.y, this.width, this.height, '#00000000')
+      Shapes.drawRectangle(BUTTON_BORDER_COLOR, CENTER, 1, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
 
       // Draw the label
       Shapes.drawText(CENTER, CENTER, this.label, 0.1, 0, this.x, this.y + this.height / 2 + 10)
 
       // Draw the image
-      Shapes.drawImage(imageList[this.imageIndex], CENTER, TOOLBAR_WIDTH / 2, this.imageIndex * 70 + 30, 30, 30)
+      Shapes.drawImage(imageList[this.imageIndex], CENTER, TOOLBAR_WIDTH / 2, this.imageIndex * 70 + 30, 40, 40)
   }
 
   /*

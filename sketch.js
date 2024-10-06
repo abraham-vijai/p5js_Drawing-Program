@@ -50,8 +50,6 @@ function setup() {
     () => Transformations.translateVertices(0, TRANSLATE_FACTOR, 0, 0, vertexArray, isPivotToggled),
     () => Transformations.scaleVertices(SCALE_UP_FACTOR, vertexArray),
     () => Transformations.scaleVertices(SCALE_DOWN_FACTOR, vertexArray),
-    // () => scaleVertices(SCALE_UP_FACTOR),
-    // () => scaleVertices(SCALE_DOWN_FACTOR),
     clearCanvas,
     togglePivotMode
   ];

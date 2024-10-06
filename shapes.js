@@ -1,6 +1,7 @@
 /*
 Name        : Shapes
-Description : Provides static methods for drawing various shapes and graphical elements on a canvas, such as rectangles, points, lines, and images. This utility class aims to simplify drawing operations in the main program.
+Description : Provides static methods for drawing various shapes and graphical elements on a canvas, such as rectangles, points, lines, and images. 
+              This utility class aims to simplify drawing operations in the main program.
 */
 class Shapes {
     constructor() {}
@@ -19,8 +20,8 @@ class Shapes {
     static drawRectangle(strokeColor, mode, weight, param1, param2, param3, param4, fillColor) {
         fill(fillColor);
         stroke(strokeColor);
-        rectMode(mode);
         strokeWeight(weight);
+        rectMode(mode);
         rect(param1, param2, param3, param4);
     }
 
