@@ -16,6 +16,9 @@ const DEFAULT_Y = window.innerHeight / 2
 const TOOLBAR_COLOR = '#2a2a29';
 const BORDER_COLOR = '#0c7ad5';
 const BACKGROUND_COLOR = 255;
+const VERTEX_COLOR = 'red';
+const LINE_COLOR = 'blue';
+const PIVOT_POINT_COLOR = 'green';
 
 // Define global variables
 let pivotX = DEFAULT_X;
@@ -98,14 +101,14 @@ function draw() {
   noFill();
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
-    Shapes.drawVertex('blue', 3, v[0], v[1]);
+    Shapes.drawVertex(LINE_COLOR, 3, v[0], v[1]);
   }
   endShape(CLOSE);
 
   // Draw the points on top of the lines
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
-    Shapes.drawPoint("red", 6, v[0], v[1]);
+    Shapes.drawPoint(VERTEX_COLOR, 6, v[0], v[1]);
   }
 
   // Pivot point
