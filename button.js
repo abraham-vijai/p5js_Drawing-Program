@@ -32,21 +32,24 @@ class Button {
   Return value : None
   */
   draw() {
-    const BUTTON_FILL_COLOR =  '#FEFF9F';
-    const BUTTON_BORDER_COLOR = '#FEFF9F';
-    const TOGGLE_COLOR = '#557345';
-      // Draw the border
-      if (this.imageIndex == 9 && isPivotToggled) {
-          Shapes.drawRectangle(TOGGLE_COLOR, CENTER, 10, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
-      }
+    const BUTTON_FILL_COLOR =  '#878787';
+    const BUTTON_BORDER_COLOR = '#dcf900';
+    const TEXT_COLOR = 'white'
+    const TOGGLE_COLOR = '#00ff26';
 
-      Shapes.drawRectangle(BUTTON_BORDER_COLOR, CENTER, 1, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
+    // Draw the border
+    if (this.imageIndex == 9 && isPivotToggled) {
+    Shapes.drawRectangle(TOGGLE_COLOR, CENTER, 5, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
+    }
 
-      // Draw the label
-      Shapes.drawText(CENTER, CENTER, this.label, 0.1, 0, this.x, this.y + this.height / 2 + 10)
+    else {
+    Shapes.drawRectangle(BUTTON_BORDER_COLOR, CENTER, 5, this.x, this.y, this.width, this.height, BUTTON_FILL_COLOR)
+    }
+    // Draw the label
+    Shapes.drawText(CENTER, CENTER, this.label, 0.1, TEXT_COLOR, this.x, this.y + this.height / 2 + 10,)
 
-      // Draw the image
-      Shapes.drawImage(imageList[this.imageIndex], CENTER, TOOLBAR_WIDTH / 2, this.imageIndex * 70 + 30, 40, 40)
+    // Draw the image
+    Shapes.drawImage(imageList[this.imageIndex], CENTER, TOOLBAR_WIDTH / 2, this.imageIndex * 70 + 30, 40, 40)
   }
 
   /*

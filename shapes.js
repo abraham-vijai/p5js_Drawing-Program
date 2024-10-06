@@ -101,6 +101,5 @@ class Shapes {
         strokeWeight(weight);
         textAlign(horizAlign, vertAlign);
         text(label, param1, param2);
-        noFill();
     }
 }

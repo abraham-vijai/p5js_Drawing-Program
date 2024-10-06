@@ -13,8 +13,8 @@ const SCALE_DOWN_FACTOR = 0.95;
 const ROTATE_FACTOR = 45;
 const DEFAULT_X = (window.innerWidth + TOOLBAR_WIDTH) / 2
 const DEFAULT_Y = window.innerHeight / 2
-const TOOLBAR_COLOR = '#D3EE98';
-const BORDER_COLOR = '#A0D683';
+const TOOLBAR_COLOR = '#2a2a29';
+const BORDER_COLOR = '#0c7ad5';
 const BACKGROUND_COLOR = 255;
 
 // Define global variables
