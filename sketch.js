@@ -95,6 +95,7 @@ function draw() {
 
   // Draw the shape
   beginShape();
+  noFill();
   for (let i = 0; i < vertexArray.length; i++) {
     let v = vertexArray[i];
     Shapes.drawVertex('blue', 3, v[0], v[1]);
