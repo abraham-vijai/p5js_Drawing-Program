@@ -1,7 +1,7 @@
 /*
 Filename    : sketch.js
 Author      : Abraham Vijai
-Date        : 2024-10-06
+Date        : 2024-10-07
 Description : This is the sketch.js function
 */
 
@@ -167,6 +167,10 @@ Parameters   : None
 Return value : None
 */
 function clearCanvas() {
+  if(isPivotToggled){
+    return 0;
+  }
+
   // Clear the vertex array
   vertexArray = [];
   

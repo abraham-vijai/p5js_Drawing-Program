@@ -84,6 +84,10 @@ class Transformations {
     Return value : None
     */
     static scaleVertices(scaleFactor, vertexArray) {
+        if(isPivotToggled){
+            return 0;
+        }
+
         const scalingMatrix = [
             [scaleFactor, 0, 0],
             [0, scaleFactor, 0],
